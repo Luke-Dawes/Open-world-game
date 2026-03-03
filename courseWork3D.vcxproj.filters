@@ -81,9 +81,6 @@
     <ClCompile Include="NPC.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="AiCone.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Settings.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -144,9 +141,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="NPC.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AiCone.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Settings.h">
