@@ -7,8 +7,8 @@
 
 bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
-	auto sharedShader = std::make_shared<Shader>("C:/courseWork/courseWork3D/Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
-        "C:/courseWork/courseWork3D/Shaders/Player.frag.txt");
+	auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+        "Shaders/Player.frag.txt");
 
     inventory = std::make_shared<Inventory>(); //create the inventory 
 
@@ -19,8 +19,8 @@ bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
     cube = std::make_unique<Cube>(sharedShader);
 
-    DeathScreen = std::make_shared<deathScreen>(std::make_shared<Shader>("C:/courseWork/courseWork3D/Shaders/DeathScreen.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
-        "C:/courseWork/courseWork3D/Shaders/DeathScreen.frag.txt"));
+    DeathScreen = std::make_shared<deathScreen>(std::make_shared<Shader>("Shaders/DeathScreen.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+        "Shaders/DeathScreen.frag.txt"));
 
     if (preCamera != nullptr) {
         camera = preCamera;
@@ -31,11 +31,12 @@ bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
     floor = std::make_unique<Floor>(50.f, sharedShader);
 
-    friendlyNPC = std::make_shared<FriendlyNPC>("NPC1", sharedShader, glm::vec3(5.f,0.f,5.f), loadModel("C:/courseWork/courseWork3D/x64/Debug/Adventurer.glb"));
+    friendlyNPC = std::make_shared<FriendlyNPC>("NPC1", sharedShader, glm::vec3(5.f,0.f,5.f), loadModel("Adventurer.glb")); //breaks here ====================================================
 
-    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-20.f, 0, -18.f), 10, loadModel("C:/courseWork/courseWork3D/x64/Debug/Wolf.glb")));
-    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-23.f, 0, -15.f), 10, loadModel("C:/courseWork/courseWork3D/x64/Debug/Wolf.glb")));
-    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-25.f, 0, -13.f), 10, loadModel("C:/courseWork/courseWork3D/x64/Debug/Wolf.glb")));
+                                                                                                           //path          solution    plat/config/file
+    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-20.f, 0, -18.f), 10, loadModel("Wolf.glb")));
+    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-23.f, 0, -15.f), 10, loadModel("Wolf.glb")));
+    NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-25.f, 0, -13.f), 10, loadModel("Wolf.glb")));
 
     coinsVec.push_back(std::make_shared<Coin>(sharedShader, glm::vec3(-45.f, 1.f, -45.f)));
     coinsVec.push_back(std::make_shared<Coin>(sharedShader, glm::vec3(-16.f, 1.f, -34.f)));
@@ -43,25 +44,25 @@ bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
     coinsVec.push_back(std::make_shared<Coin>(sharedShader, glm::vec3(-32.f, 1.f, -11.f)));
     coinsVec.push_back(std::make_shared<Coin>(sharedShader, glm::vec3(-28.f, 1.f, -26.f)));
 
-    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-40.f, 0.f, -36.f), loadModel("C:/courseWork/courseWork3D/x64/Debug/Sheep.glb")));
-    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-39.f, 0.f, -35.5f), loadModel("C:/courseWork/courseWork3D/x64/Debug/Sheep.glb")));
-    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-40.f, 0.f, -33.f), loadModel("C:/courseWork/courseWork3D/x64/Debug/Sheep.glb")));
+    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-40.f, 0.f, -36.f), loadModel("Sheep.glb")));
+    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-39.f, 0.f, -35.5f), loadModel("Sheep.glb")));
+    sheepVec.push_back(std::make_shared<Sheep>("Sheep", sharedShader, glm::vec3(-40.f, 0.f, -33.f), loadModel("Sheep.glb")));
 
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Cabin.glb", sharedShader, glm::vec3( 8.f, 3.6f, -20.f), 0.85f, 0.009f, 90)); //cabin is here
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-40.5f, 0.1f, -40.f), 1.f, 5.f, 45.f)); //first fense - curved back left
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -36.f), 1.f, 5.f, 90.f)); //second fense - parralel to house back left + 1
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -32.f), 1.f, 5.f, 90.f)); //third fense - parrallel to house back left + 2
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -28.f), 1.f, 5.f, 90.f)); //fourth fense - parrallel to house back left + 3
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -24.f), 1.f, 5.f, 90.f)); //fith fense - parrallel to house back left + 4
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -20.f), 1.f, 5.f, 90.f)); //sixth fense - parrallel to house back left + 5
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-41.f, 0.1f, -17.f), 1.f, 5.f, 315.f)); //seventh fense - coming towards the player front left
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-38.7f, 0.1f, -14.5f), 1.f, 5.f, 315.f)); //eights fense - cming towards the player front left + 1
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-37.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //ninth fense - straight back left going towards the right 
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-33.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //tenth fense - straight back left going towards the right + 1
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-29.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //eleventh fense - straight back left going towards the right + 2
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-25.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //twelth fense - straight back left going towards the right + 3
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-22.f, 0.1f, -38.f), 1.f, 5.f, 315.f)); //thirteen fense - going towards house at angle - rightside
-    worldObjectsVec.push_back(std::make_shared<WorldObjects>("C:/courseWork/courseWork3D/x64/Debug/Fence.glb", sharedShader, glm::vec3(-20.f, 0.1f, -36.f), 1.f, 5.f, 315.f)); //fourteen fense - going towards house at angle + 1 - rightside
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Cabin.glb", sharedShader, glm::vec3( 8.f, 3.6f, -20.f), 0.85f, 0.009f, 90)); //cabin is here
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-40.5f, 0.1f, -40.f), 1.f, 5.f, 45.f)); //first fense - curved back left
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -36.f), 1.f, 5.f, 90.f)); //second fense - parralel to house back left + 1
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -32.f), 1.f, 5.f, 90.f)); //third fense - parrallel to house back left + 2
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -28.f), 1.f, 5.f, 90.f)); //fourth fense - parrallel to house back left + 3
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -24.f), 1.f, 5.f, 90.f)); //fith fense - parrallel to house back left + 4
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-42.f, 0.1f, -20.f), 1.f, 5.f, 90.f)); //sixth fense - parrallel to house back left + 5
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-41.f, 0.1f, -17.f), 1.f, 5.f, 315.f)); //seventh fense - coming towards the player front left
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-38.7f, 0.1f, -14.5f), 1.f, 5.f, 315.f)); //eights fense - cming towards the player front left + 1
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-37.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //ninth fense - straight back left going towards the right 
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-33.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //tenth fense - straight back left going towards the right + 1
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-29.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //eleventh fense - straight back left going towards the right + 2
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-25.f, 0.1f, -40.f), 1.f, 5.f, 0.f)); //twelth fense - straight back left going towards the right + 3
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-22.f, 0.1f, -38.f), 1.f, 5.f, 315.f)); //thirteen fense - going towards house at angle - rightside
+    worldObjectsVec.push_back(std::make_shared<WorldObjects>("Fence.glb", sharedShader, glm::vec3(-20.f, 0.1f, -36.f), 1.f, 5.f, 315.f)); //fourteen fense - going towards house at angle + 1 - rightside
 
 #ifdef _DEBUG
     NPCWireFrameVec.push_back(std::make_shared<AABBorder>(sharedShader, NPCVec[0]->getGlobalAABB().min, NPCVec[0]->getGlobalAABB().max)); ///debug

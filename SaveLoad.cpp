@@ -99,8 +99,8 @@ void SaveLoad::load(Manager* m) {
         return;
     }
 
-    auto sharedShader = std::make_shared<Shader>("C:/courseWork/courseWork3D/Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
-        "C:/courseWork/courseWork3D/Shaders/Player.frag.txt");
+    auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+        "Shaders/Player.frag.txt");
 
     json SaveData;
     file >> SaveData;
@@ -133,7 +133,7 @@ void SaveLoad::load(Manager* m) {
         for (auto& wolfJSON : SaveData["wolves"]) {
             glm::vec3 pos(wolfJSON["position"][0], wolfJSON["position"][1], wolfJSON["position"][2]);
             int health = wolfJSON["health"];
-            m->getNPC().emplace_back(std::make_shared<Wolf>("wolf", sharedShader, pos, 5, loadModel("C:/courseWork/courseWork3D/x64/Debug/Wolf.glb")));
+            m->getNPC().emplace_back(std::make_shared<Wolf>("wolf", sharedShader, pos, 5, loadModel("Wolf.glb")));
         }
     }
 
@@ -143,7 +143,7 @@ void SaveLoad::load(Manager* m) {
         for (auto& sheepJSON : SaveData["sheep"]) {
             glm::vec3 pos(sheepJSON["position"][0], sheepJSON["position"][1], sheepJSON["position"][2]);
             int health = sheepJSON["health"];
-            m->getSheep().emplace_back(std::make_shared<Sheep>("Sheep", sharedShader, pos, loadModel("C:/courseWork/courseWork3D/x64/Debug/Sheep.glb")));
+            m->getSheep().emplace_back(std::make_shared<Sheep>("Sheep", sharedShader, pos, loadModel("Sheep.glb")));
         }
     }
 

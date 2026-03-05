@@ -130,7 +130,7 @@ void Coin::draw(const glm::mat4& view, const glm::mat4& projection) {
 }
 
 void Coin::setupMesh() {
-    mesh = loadModel("C://courseWork//courseWork3D//x64//Debug//Coin.glb");
+    mesh = loadModel("Coin.glb");
 }
 
 void Coin::update() {

@@ -46,7 +46,7 @@ void Player::draw(const glm::mat4& view, const glm::mat4& projection) {
 
 void Player::setupMesh() {
 
-    mesh = loadModel("C:/courseWork/courseWork3D/x64/Debug/Adventurer.glb"); ///put in the path to the model, 
+    mesh = loadModel("Adventurer.glb"); ///put in the path to the model, 
 
     if (mesh->getLocalAABB().max != glm::vec3(1.f)) { //check to see if its calculated yet
         mesh->getLocalAABB().max.y = mesh->getLocalAABB().max.y * 1.4f; //scale the max.y to a higher height
@@ -225,7 +225,7 @@ void Player::move(glm::vec3 pos) {
 
 void PlayerProjectile::setupMesh() {
     if (!mesh) { //if mesh == nullptr
-        mesh = loadModel("C:/courseWork/courseWork3D/x64/Debug/Star.glb");
+        mesh = loadModel("Star.glb");
         
     }
 }
