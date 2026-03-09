@@ -6,6 +6,8 @@
 
 [[nodiscard]] std::unique_ptr<Mesh> loadModel(const std::string& path);
 
-void processNode(aiNode* node, const aiScene* scene, std::vector<Mesh::Vertex>& vertices, std::vector<unsigned int>& indices, unsigned int& indicesOffset, const glm::mat4& parentTransform);
+void processNode(aiNode* node, const aiScene* scene, std::vector<Mesh::Vertex>& vertices, 
+	std::vector<unsigned int>& indices, unsigned int& indicesOffset, const glm::mat4& parentTransform);
+
 glm::mat4 assimpToGLM(aiMatrix4x4& a);
 

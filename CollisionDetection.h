@@ -20,8 +20,7 @@ struct AABB { //for rectangles
 	glm::vec3 calculateMTV(const AABB& other);
 
 	//each mesh will have their own local AABB, and then i just need to 
-	// add the AABB to the position in space to work with it. 
-	//most meshes, - i dont want it to work for like the player etc, mayve the wolves idk
+	//add the AABB to the position in space to work with it. 
 
 };
 

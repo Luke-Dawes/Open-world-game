@@ -92,11 +92,7 @@ int main() {
 
     auto camera = std::make_shared<Camera>(glm::vec3(0.f, 0.f, 3.f)); //make a camera
 
-
-
-
     io.DisplaySize = ImVec2(windowSize.first, windowSize.second);
-
 
     static char bufferUsername[128];
     static char bufferPassword[128];

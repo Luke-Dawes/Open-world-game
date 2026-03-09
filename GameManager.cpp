@@ -7,7 +7,7 @@
 
 bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
-	auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+	auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", 
         "Shaders/Player.frag.txt");
 
     inventory = std::make_shared<Inventory>(); //create the inventory 
@@ -19,7 +19,7 @@ bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
     cube = std::make_unique<Cube>(sharedShader);
 
-    DeathScreen = std::make_shared<deathScreen>(std::make_shared<Shader>("Shaders/DeathScreen.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+    DeathScreen = std::make_shared<deathScreen>(std::make_shared<Shader>("Shaders/DeathScreen.vert.txt",
         "Shaders/DeathScreen.frag.txt"));
 
     if (preCamera != nullptr) {
@@ -31,9 +31,8 @@ bool Manager::initGame(std::shared_ptr<Camera> preCamera, std::string name) {
 
     floor = std::make_unique<Floor>(50.f, sharedShader);
 
-    friendlyNPC = std::make_shared<FriendlyNPC>("NPC1", sharedShader, glm::vec3(5.f,0.f,5.f), loadModel("Adventurer.glb")); //breaks here ====================================================
-
-                                                                                                           //path          solution    plat/config/file
+    friendlyNPC = std::make_shared<FriendlyNPC>("NPC1", sharedShader, glm::vec3(5.f,0.f,5.f), loadModel("Adventurer.glb")); 
+                                                                                                           
     NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-20.f, 0, -18.f), 10, loadModel("Wolf.glb")));
     NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-23.f, 0, -15.f), 10, loadModel("Wolf.glb")));
     NPCVec.push_back(std::make_shared<Wolf>("wolf", sharedShader, glm::vec3(-25.f, 0, -13.f), 10, loadModel("Wolf.glb")));

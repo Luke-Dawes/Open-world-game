@@ -19,10 +19,14 @@ private:
 
 	//pathing - random coordinates that the AI will path to if its in passive mode
 	std::vector<glm::vec3> randomPositions = {  //this needs changing
-		glm::vec3(-13, 0, -28), glm::vec3(-17,0,-25), glm::vec3(-22, 0, -21), glm::vec3(-27, 0, -16), glm::vec3(-30, 0, -15), glm::vec3(-34,0,-10), glm::vec3(-36,0,-36),
-		glm::vec3(-30,0,-10), glm::vec3(-10,0,-20), glm::vec3(-20,0,-10), glm::vec3(-10,0,-15), glm::vec3(-30,0,-10)
+		glm::vec3(-13, 0, -28), glm::vec3(-17,0,-25), glm::vec3(-22, 0, -21), 
+		glm::vec3(-27, 0, -16), glm::vec3(-30, 0, -15), glm::vec3(-34,0,-10), 
+		glm::vec3(-36,0,-36), glm::vec3(-30,0,-10), glm::vec3(-10,0,-20), 
+		glm::vec3(-20,0,-10), glm::vec3(-10,0,-15), glm::vec3(-30,0,-10)
 	};
-	glm::vec3 currentTarget =  randomPositions[((int)glfwGetTime() * 10) % randomPositions.size()]; //get a random number which is below the size of random positions
+
+	//get a random number which is below the size of random positions
+	glm::vec3 currentTarget =  randomPositions[((int)glfwGetTime() * 10) % randomPositions.size()]; 
 	
 	//collision detection
 	glm::mat4 model;

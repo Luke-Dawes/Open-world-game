@@ -3,7 +3,6 @@
 #include "AssimpMeshBuilder.h"
 #include "Player.h"
 
-
 /// floor
 Floor::Floor(float size, std::shared_ptr<Shader> parameterShader)
     
@@ -167,24 +166,3 @@ void WorldObjects::setGlobalAABB() {
     model = glm::rotate(model, glm::radians(rotation), glm::vec3(0, 1, 0));
     globalAABB = AABB(TransformAABB(mesh->getLocalAABB(), model));
 }
-
-
-
-void redArrow::update(Player& player) {
-    position = player.getPlayerPosition() + glm::vec3(0.0f, 1.0f, 0.0f); // slightly above player
-    direction = glm::normalize(player.getPlayerfront()); // point in player’s facing direction
-
-}
-
-void greenArrow::update(const glm::vec3& playerPos, const glm::vec3& cameraFront) {
-    // Position slightly above the player
-    position = playerPos + glm::vec3(0.f, 1.f, 0.f);
-
-    // Get yaw angle from cameraFront
-    if (glm::length(cameraFront) > 0.0001f) {
-        // Project onto XZ plane
-        glm::vec3 flatFront = glm::normalize(glm::vec3(cameraFront.x, 0.f, cameraFront.z));
-        rotationYaw = glm::degrees(atan2(flatFront.x, flatFront.z));
-    }
-}
-

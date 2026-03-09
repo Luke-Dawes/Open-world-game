@@ -28,7 +28,8 @@ public:
 
     //void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 
-    Camera(glm::vec3 startPos = glm::vec3(0.f, 0.f, 3.f), glm::vec3 up = glm::vec3(0.f, 1.f, 0.f), float yaw = -90.f, float pitch = 0.f);
+    Camera(glm::vec3 startPos = glm::vec3(0.f, 0.f, 3.f), 
+        glm::vec3 up = glm::vec3(0.f, 1.f, 0.f), float yaw = -90.f, float pitch = 0.f);
     
     glm::mat4 getViewMatrix() const;
 

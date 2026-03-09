@@ -157,7 +157,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SaveLoad.cpp" />
-    <ClCompile Include="Settings.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="WorldObjects.cpp" />
   </ItemGroup>

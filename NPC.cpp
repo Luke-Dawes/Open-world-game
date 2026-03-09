@@ -8,8 +8,7 @@
 
 NPC::NPC(const std::string& name, std::shared_ptr<Shader> shader, glm::vec3 position, std::shared_ptr<Mesh> mesh)
 	: name(name), shader(shader), position(position), mesh(mesh) 
-{
-}
+{}
 
 
 void NPC::draw(const glm::mat4& view, const glm::mat4& projection) {

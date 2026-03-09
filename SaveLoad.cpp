@@ -99,7 +99,7 @@ void SaveLoad::load(Manager* m) {
         return;
     }
 
-    auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", //=============== WILL CAUSE ERRORS WHEN TRY TO PLAY ON OTHER MACHINES
+    auto sharedShader = std::make_shared<Shader>("Shaders/Player.vert.txt", 
         "Shaders/Player.frag.txt");
 
     json SaveData;
@@ -116,20 +116,11 @@ void SaveLoad::load(Manager* m) {
         player->setYaw(playerJSON["yaw"]);
         player->setMoney(playerJSON["money"]);
         player->setName(playerJSON["name"]);
-
-
-        //if (playerJSON.contains("inventory")) {
-        //    player->clearInventory(); // Clear current inventory
-        //    for (auto& itemJSON : playerJSON["inventory"]) {
-        //        auto item = std::make_shared<Item>(itemJSON["id"], itemJSON["quantity"]);
-        //        player->addItem(item);
-        //    }
-        //}
     }
 
-    // --- Load Wolves ---
+    //wolves
     if (SaveData.contains("wolves")) {
-        m->getNPC().clear(); // remove current wolves
+		m->getNPC().clear(); //clear the current wolves
         for (auto& wolfJSON : SaveData["wolves"]) {
             glm::vec3 pos(wolfJSON["position"][0], wolfJSON["position"][1], wolfJSON["position"][2]);
             int health = wolfJSON["health"];
@@ -137,9 +128,9 @@ void SaveLoad::load(Manager* m) {
         }
     }
 
-    // --- Load Sheep ---
+    //sheep
     if (SaveData.contains("sheep")) {
-        m->getSheep().clear(); // remove current sheep
+        m->getSheep().clear(); //clear the sheep
         for (auto& sheepJSON : SaveData["sheep"]) {
             glm::vec3 pos(sheepJSON["position"][0], sheepJSON["position"][1], sheepJSON["position"][2]);
             int health = sheepJSON["health"];
@@ -147,16 +138,16 @@ void SaveLoad::load(Manager* m) {
         }
     }
 
-    // --- Load Coins ---
+    //coins
     if (SaveData.contains("coin")) {
-        m->getCoinVector().clear(); // remove current coins
+        m->getCoinVector().clear(); 
         for (auto& coinJSON : SaveData["coin"]) {
             glm::vec3 pos(coinJSON["position"][0], coinJSON["position"][1], coinJSON["position"][2]);
             m->getCoinVector().emplace_back(std::make_shared<Coin>(sharedShader, pos));
         }
     }
 
-    // --- Load Settings ---
+    //settings
     if (SaveData.contains("settings")) {
         auto& settingsJSON = SaveData["settings"];
         auto& settings = player->getSettings();

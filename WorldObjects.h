@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Mesh.h"
 #include "Drawable.h"
 #include "Shader.h"
@@ -81,11 +80,13 @@ class WorldObjects : public Drawable {
 	glm::mat4 model;
 	float scaleOfAABB;
 	float actualScale;
-	float rotation; //use this ====================================
+	float rotation; //use this 
 
 public: 
 
-	WorldObjects(const std::string& path, std::shared_ptr<Shader> shader, glm::vec3 position, float scaleOfAABB = 1.f, float actualScale = 1.f, float rotation = 0.f) 
+	WorldObjects(const std::string& path, std::shared_ptr<Shader> shader, glm::vec3 position, 
+		float scaleOfAABB = 1.f, float actualScale = 1.f, float rotation = 0.f) 
+
 		: shader(shader), position(position), scaleOfAABB(scaleOfAABB), actualScale(actualScale), rotation(rotation)
 	{
 		mesh = loadModel(path);
@@ -100,132 +101,11 @@ public:
 
 };
 
-
-
-
-
-
 //debugging 
 
 class Player;
 
-class redArrow : public Drawable { ///keeping until i fix the player rotations aswell 
-public:
-	std::unique_ptr<Mesh> mesh;
-	std::shared_ptr<Shader> shader;
-	glm::vec3 position = glm::vec3(0.f);
-	glm::vec3 direction = glm::vec3(0.f);
 
-	redArrow(std::shared_ptr<Shader> shader) :
-		shader(shader)
-	{
-		setupMesh();
-	}
-
-	void update(Player& player);
-
-	void setupMesh() {
-		std::vector<Mesh::Vertex> vertices;
-		std::vector<unsigned int> indices;
-
-		// Main line (white)
-		vertices.push_back({ glm::vec3(0.0f), glm::vec4(1.0f) });
-		vertices.push_back({ glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1.0f) });
-
-		indices.push_back(0);
-		indices.push_back(1);
-
-		// Arrowhead (red)
-		vertices.push_back({ glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1,0,0,1) });
-		vertices.push_back({ glm::vec3(0.1f, 0.0f, 0.8f), glm::vec4(1,0,0,1) });
-		indices.push_back(2);
-		indices.push_back(3);
-
-		vertices.push_back({ glm::vec3(0.0f, 0.0f, 1.0f), glm::vec4(1,0,0,1) });
-		vertices.push_back({ glm::vec3(-0.1f, 0.0f, 0.8f), glm::vec4(1,0,0,1) });
-		indices.push_back(4);
-		indices.push_back(5);
-
-		mesh = std::make_unique<Mesh>(vertices, indices);
-	}
-
-	void draw(const glm::mat4& view, const glm::mat4& projection) override {
-		shader->use();
-
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, position);
-
-		// Rotate arrow to point along direction
-		if (glm::length(direction) > 0.0001f) {
-			glm::vec3 defaultDir(0.0f, 0.0f, 1.0f);
-			glm::vec3 axis = glm::cross(defaultDir, direction);
-			float angle = acos(glm::dot(defaultDir, direction));
-			if (glm::length(axis) > 0.0001f)
-				model = glm::rotate(model, angle, glm::normalize(axis));
-		}
-
-		model = glm::scale(model, glm::vec3(1.f));
-		shader->setMat4("model", model);
-		shader->setMat4("view", view);
-		shader->setMat4("projection", projection);
-
-		mesh->draw();
-	}
-
-};
-
-
-class greenArrow : public Drawable {
-public:
-	std::unique_ptr<Mesh> mesh;
-	std::shared_ptr<Shader> shader;
-	glm::vec3 position = glm::vec3(0.f);
-	glm::vec3 direction = glm::vec3(0.f);
-	float rotationYaw = 0.f;
-
-	greenArrow(std::shared_ptr<Shader> shader) :
-		shader(shader)
-	{
-		setupMesh();
-	}
-
-	void update(const glm::vec3& playerPos, const glm::vec3& cameraFront); 
-
-	void setupMesh() {
-		std::vector<Mesh::Vertex> vertices = {
-			
-			{{0.f, 0.5f, 1.f}, {1.f, 1.f, 1.f, 1.f}},  
-			{{-0.25f, -0.5f, 1.f}, {1.f, 1.f, 1.f, 1.f}},
-			{{0.25f, -0.5f, 1.f}, {1.f, 1.f, 1.f, 1.f}},
-
-			
-			{{-0.05f, -0.5f, 0.f}, {1.f, 1.f, 1.f, 1.f}},
-			{{0.05f, -0.5f, 0.f}, {1.f, 1.f, 1.f, 1.f}},
-			{{0.05f, 0.5f, 0.f}, {1.f, 1.f, 1.f, 1.f}},
-			{{-0.05f, 0.5f, 0.f}, {1.f, 1.f, 1.f, 1.f}},
-		};
-
-		std::vector<unsigned int> indices = {
-			0,1,2,        // tip
-			3,4,5, 5,6,3  // line
-		};
-
-		mesh = std::make_unique<Mesh>(vertices, indices);
-	}
-
-	void draw(const glm::mat4& view, const glm::mat4& projection) override {
-		glm::mat4 model = glm::mat4(1.f);
-		model = glm::translate(model, position);
-		model = glm::rotate(model, glm::radians(rotationYaw), glm::vec3(0, 0, 1));
-		model = glm::scale(model, glm::vec3(2.f));
-		shader->use();
-		shader->setMat4("model", model);
-		shader->setMat4("view", view);
-		shader->setMat4("projection", projection);
-
-		mesh->draw();
-	}
-};
 
 class AABBorder : public Drawable {
 public:
@@ -311,9 +191,9 @@ public:
 	void setupMesh() {
 
 		std::vector<Mesh::Vertex> verticies = {
-			{{1.f,1.f,0.f}, {0.f,0.f,0.f,1.f}}, //flat plane across teh whole screen with the colour being black, and the alpha being how transparent it is.
-			{{1.f,-1.f,0.f}, {0.f,0.f,0.f,1.f}}, //alpha changes every time, meaning that it should slowly get darker
-			{{-1.f,-1.f,0.f}, {0.f,0.f,0.f,1.f}},
+			{{1.f,1.f,0.f}, {0.f,0.f,0.f,1.f}}, //flat plane across teh whole screen with the colour being black, 
+			{{1.f,-1.f,0.f}, {0.f,0.f,0.f,1.f}}, //and the alpha being how transparent it is. (the last value on every vert)
+			{{-1.f,-1.f,0.f}, {0.f,0.f,0.f,1.f}}, //alpha changes every time, meaning that it should slowly get darker
 			{{-1.f,1.f,0.f}, {0.f,0.f,0.f,1.f}}
 		};
 

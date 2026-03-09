@@ -92,7 +92,8 @@ std::unique_ptr<Mesh> loadModel(const std::string& path) {
 	return std::make_unique<Mesh>(vertices, indices);
 }
 
-void processNode(aiNode* node, const aiScene* scene, std::vector<Mesh::Vertex>& vertices, std::vector<unsigned int>& indices, unsigned int& indicesOffset, const glm::mat4& parentTransform) {
+void processNode(aiNode* node, const aiScene* scene, std::vector<Mesh::Vertex>& vertices, 
+	std::vector<unsigned int>& indices, unsigned int& indicesOffset, const glm::mat4& parentTransform) {
 	/*
 	*ProcessNode function. Its a recursive function which goes through all the different meshes in the glb file and combines them into one.
 	* 

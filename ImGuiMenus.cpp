@@ -1,7 +1,6 @@
 #include "ImGuiMenus.h"
 #include "imgui.h"
 #include "SaveLoad.h"
-
 #include "backends\imgui_impl_glfw.h"
 #include "backends\imgui_impl_opengl3.h"
 #include <string>
@@ -88,9 +87,6 @@ Gamestate Menu::mainMenu(GLFWwindow* window, Manager* m)
 
     if (ImGui::Button("Quit", ImVec2(200, 50))) { ImGui::End(); return Gamestate::Quit; }
 
-
-    
-
     ImGui::End();
     
     return Gamestate::MainMenu;
@@ -138,48 +134,6 @@ void Menu::HUD(const Player& player, const std::vector<std::shared_ptr<Sheep> >&
 
     ImGui::EndChild();
 
-    /*for (auto& obj : sheepvec) {
-        ImGui::SetNextWindowBgAlpha(0.f);
-
-        float xPos = (obj->mesh->getLocalAABB().max.x + obj->mesh->getLocalAABB().min.x) / 2;
-        float yPos = ((obj->mesh->getLocalAABB().max.y + obj->mesh->getLocalAABB().min.y) / 2) + 20;
-
-
-        ImGui::SetCursorPos(ImVec2(xPos, yPos));
-        std::string unique = "sheepHealth" + std::to_string(ID);
-        ID++;
-
-        ImGui::BeginChild(unique.c_str(), ImVec2(100, 100), ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoBackground
-        );
-
-        float percent = 100;
-
-        ImGui::ProgressBar(percent, ImVec2(-1, 0));
-        ImGui::EndChild();
-        
-    }
-
-    for (auto& obj : npcvec) {
-        ImGui::SetNextWindowBgAlpha(0.f);
-
-        float xPos = (obj->mesh->getLocalAABB().max.x + obj->mesh->getLocalAABB().min.x) / 2;
-        float yPos = ((obj->mesh->getLocalAABB().max.y + obj->mesh->getLocalAABB().min.y) / 2) + 20;
-
-        std::string unique = "sheepHealth" + std::to_string(ID);
-        ID++;
-        ImGui::SetCursorPos(ImVec2(xPos, yPos));
-
-        ImGui::BeginChild(unique.c_str(), ImVec2(100, 20), ImGuiWindowFlags_NoTitleBar |
-            ImGuiWindowFlags_NoBackground
-        );
-
-        float percent = static_cast<float>(obj->getHealth()) / obj->getMaxHealth();
-
-        ImGui::ProgressBar(percent, ImVec2(-1, 0));
-        ImGui::EndChild();
-    }*/
-    
     ImGui::End();
 
 }
@@ -233,7 +187,7 @@ Gamestate Menu::inventoryMenu(Manager& manager) {
     std::string equipt;
 
 
-    //checks to see if there is an item there. If there is make the string vairable equal it otherwise make it say no x
+    //checks to see if there is an item there. If there is make the string vairable equal it otherwise make it say none
     helmet = (inventory->getCurrentHelmet() == nullptr) ? "no helmet" : inventory->getCurrentHelmet()->getName();
     chest = (inventory->getCurrentChest() == nullptr) ? "no chest" : inventory->getCurrentChest()->getName();
     boots = (inventory->getCurrentBoots() == nullptr) ? "no boots" : inventory->getCurrentBoots()->getName();
@@ -263,13 +217,7 @@ Gamestate Menu::inventoryMenu(Manager& manager) {
 
         }
     }
-    //ImGui::Text(helmet.c_str());
-    //ImGui::Spacing();
-    //ImGui::Text(chest.c_str());
-    //ImGui::Spacing();
-    //ImGui::Text(boots.c_str());
-    //ImGui::Spacing();
-    //ImGui::Text(equipt.c_str());
+
     ImGui::EndChild();
 
 
@@ -448,8 +396,8 @@ bool Menu::Shop(GLFWwindow* window, Manager& m) {
     ImGui::SetCursorPos(ImVec2(100, 50));
     if (ImGui::Button("Buy health potion. £10")) {
         if (text1Colour == green) { //player has enough money
-            player->getInventory()->addToInventory(std::make_shared<HealthPotion>(std::make_shared<Shader>("C:/courseWork/courseWork3D/Shaders/Player.vert.txt",
-                "C:/courseWork/courseWork3D/Shaders/Player.frag.txt"), glm::vec3(0, 0, 0), 20));
+            player->getInventory()->addToInventory(std::make_shared<HealthPotion>(std::make_shared<Shader>("Shaders/Player.vert.txt",
+                "Shaders/Player.frag.txt"), glm::vec3(0, 0, 0), 20));
 
             player->setMoney(player->getMoney() - 10);
         }
@@ -465,8 +413,8 @@ bool Menu::Shop(GLFWwindow* window, Manager& m) {
     ImGui::SetCursorPos(ImVec2(100, 100));
     if (ImGui::Button("Buy damage potion. £20")) {
         if (text1Colour == green) { //player has enough money
-            player->getInventory()->addToInventory(std::make_shared<DamagePotion>(std::make_shared<Shader>("C:/courseWork/courseWork3D/Shaders/Player.vert.txt",
-                "C:/courseWork/courseWork3D/Shaders/Player.frag.txt"), glm::vec3(0, 0, 0), 20));
+            player->getInventory()->addToInventory(std::make_shared<DamagePotion>(std::make_shared<Shader>("Shaders/Player.vert.txt",
+                "Shaders/Player.frag.txt"), glm::vec3(0, 0, 0), 20));
 
             player->setMoney(player->getMoney() - 20);
         }

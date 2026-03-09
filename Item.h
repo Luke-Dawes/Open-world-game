@@ -2,7 +2,6 @@
 #include "Mesh.h"
 #include "Shader.h"
 #include "Drawable.h"
-//#include "GameManager.h"
 #include <memory>
 #include <string>
 
@@ -37,7 +36,7 @@ public:
 	void setPosition(const glm::vec3& pos) { position = pos; }
 	void setAmount(int newAmount) { amount = newAmount; }
 
-	virtual void use(Manager& manager) const = 0; //doesnt know what manager is so here is the problem
+	virtual void use(Manager& manager) const = 0; 
 
 	//graphics
 	void draw(const glm::mat4& view, const glm::mat4& projection) override;
