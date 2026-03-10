@@ -335,6 +335,11 @@ bool Menu::TalkToNPC(GLFWwindow* window, FriendlyNPC& npc, Manager& m)
         npc.npcDialogueIndex = 0;
     }
 
+    if (npc.npcDialogueIndex == 1) {
+		ImGui::SetCursorPos(ImVec2(300, 250));
+        ImGui::Text("press next to start the quest");
+    }
+
     if (npc.npcDialogueIndex == 4) {
 		ImGui::SetCursorPos(ImVec2(300, 250));
         ImGui::Text("you have completed the quest");

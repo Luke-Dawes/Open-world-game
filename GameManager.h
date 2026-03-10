@@ -31,8 +31,6 @@ private:
 	
 
 #ifdef _DEBUG
-	std::unique_ptr<redArrow> redarrow;
-	std::unique_ptr<greenArrow> greenarrow;
 	std::vector<std::shared_ptr<AABBorder> > NPCWireFrameVec;
 	std::shared_ptr<AABBorder> playerFrame;
 	std::vector<std::shared_ptr<AABBorder> > coinWireFrameVec;
